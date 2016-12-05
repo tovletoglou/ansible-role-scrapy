@@ -1,0 +1,36 @@
+---
+
+- name: Install Scrapy dependencies using yum
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - python
+    - python-pip
+    - python-devel
+    - gcc
+    # - gcc-devel
+    # - gcc-c++
+    - libxml2
+    - libxml2-devel
+    - libxslt
+    - libxslt-devel
+    - openssl
+    - openssl-devel
+    - libffi
+    - libffi-devel
+
+- name: Update pip
+  pip:
+    name: pip
+    extra_args: --upgrade
+
+# - name: Install virtualenv
+#   pip:
+#     name: virtualenv
+
+- name: Install Scrapy
+  become: yes
+  pip:
+    name: scrapy
+    # virtualenv: /my_app/venv
