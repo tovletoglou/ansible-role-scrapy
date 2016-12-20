@@ -1,0 +1,22 @@
+---
+
+scrapy_dependencies:
+  - python
+  - python-pip
+  - python-devel
+  - gcc
+  - libxml2
+  - libxml2-devel
+  - libxslt
+  - libxslt-devel
+  - openssl
+  - openssl-devel
+  - libffi
+  - libffi-devel
+
+scrapy_in_virtualenv: false
+
+scrapy_virtualenv: /my_app/venv
+
+scrapy_extra_libraries:
+  - ScrapyElasticSearch

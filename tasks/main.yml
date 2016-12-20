@@ -5,32 +5,33 @@
     name: "{{ item }}"
     state: latest
   with_items:
-    - python
-    - python-pip
-    - python-devel
-    - gcc
-    # - gcc-devel
-    # - gcc-c++
-    - libxml2
-    - libxml2-devel
-    - libxslt
-    - libxslt-devel
-    - openssl
-    - openssl-devel
-    - libffi
-    - libffi-devel
+    - "{{ scrapy_dependencies }}"
 
 - name: Update pip
   pip:
     name: pip
     extra_args: --upgrade
 
-# - name: Install virtualenv
-#   pip:
-#     name: virtualenv
+- name: Install virtualenv
+  pip:
+    name: virtualenv
+  when: scrapy_in_virtualenv
 
 - name: Install Scrapy
   become: yes
   pip:
     name: scrapy
-    # virtualenv: /my_app/venv
+
+- name: Install Scrapy
+  become: yes
+  pip:
+    name: scrapy
+    virtualenv: "{{ scrapy_virtualenv }}"
+  when: scrapy_in_virtualenv
+
+- name: Install extra libraries with pip
+  become: yes
+  pip:
+    name: "{{ item }}"
+  with_items:
+    - "{{ scrapy_extra_libraries }}"
